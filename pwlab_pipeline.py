@@ -88,4 +88,4 @@ get_object_count = PythonOperator(
 )
 
 dq_check >> blur_detection >> reflectance >> img_metadata_analysis
-dq_check >> photogrametry >> get_object_count
+photogrametry >> get_object_count
