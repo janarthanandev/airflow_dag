@@ -47,19 +47,19 @@ dq_check = BashOperator(
     dag=dag,
 )
 
-blur_detection = PythonOperator(
+dq_check = PythonOperator(
     task_id='blur_detection',
     provide_context=True,
     python_callable=blur_detection,
     dag=dag,
 )
-reflectance = PythonOperator(
+dq_check = PythonOperator(
     task_id='reflectance',
     provide_context=True,
     python_callable=reflectance,
     dag=dag,
 )
-img_metadata_analysis = PythonOperator(
+dq_check = PythonOperator(
     task_id='img_metadata_analysis',
     provide_context=True,
     python_callable=img_metadata_analysis,
@@ -87,5 +87,5 @@ get_object_count = PythonOperator(
     dag=dag,
 )
 
-dq_check >> blur_detection >> reflectance >> img_metadata_analysis
-photogrametry >> get_object_count
+# dq_check >> blur_detection >> reflectance >> img_metadata_analysis
+dq_check >> photogrametry >> get_object_count
