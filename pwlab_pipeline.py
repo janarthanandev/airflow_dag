@@ -37,17 +37,15 @@ dq_check = PythonOperator(
     dag=dag,
 )
 
+def photogrametry_trigger():
+    return "photogrametry done"
+
+
 photogrametry = PythonOperator(
     task_id='blur_detection',
     provide_context=True,
     python_callable=photogrametry_trigger,
     dag=dag,
 )
-# [END howto_operator_python]
-
-
-def photogrametry_trigger():
-    return "photogrametry done"
-
 
 dq_check >> photogrametry
