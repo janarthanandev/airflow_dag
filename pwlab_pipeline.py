@@ -42,7 +42,7 @@ def photogrametry_trigger():
 
 
 photogrametry = PythonOperator(
-    task_id='blur_detection',
+    task_id='photogrametry',
     provide_context=True,
     python_callable=photogrametry_trigger,
     dag=dag,
