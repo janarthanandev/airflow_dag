@@ -43,7 +43,7 @@ def img_metadata_analysis(ds, **kwargs):
 dq_check = BashOperator(
     task_id='dq_check',
     provide_context=True,
-    bash_command='echo "DQ check',,
+    bash_command='echo "DQ check"',
     dag=dag,
 )
 
