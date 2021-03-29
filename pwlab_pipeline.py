@@ -29,11 +29,40 @@ def blur_detection(ds, **kwargs):
     print(ds)
     return 'blur check passed'
 
+def reflectance(ds, **kwargs):
+    pprint(kwargs)
+    print(ds)
+    return 'reflectance check passed'
 
-dq_check = PythonOperator(
+def img_metadata_analysis(ds, **kwargs):
+    pprint(kwargs)
+    print(ds)
+    return 'img_metadata_analysis check passed'
+
+
+dq_check = BashOperator(
+    task_id='dq_check',
+    provide_context=True,
+    bash_command='echo "DQ check',,
+    dag=dag,
+)
+
+blur_detection = PythonOperator(
     task_id='blur_detection',
     provide_context=True,
     python_callable=blur_detection,
+    dag=dag,
+)
+reflectance = PythonOperator(
+    task_id='reflectance',
+    provide_context=True,
+    python_callable=reflectance,
+    dag=dag,
+)
+img_metadata_analysis = PythonOperator(
+    task_id='img_metadata_analysis',
+    provide_context=True,
+    python_callable=img_metadata_analysis,
     dag=dag,
 )
 
@@ -48,4 +77,15 @@ photogrametry = PythonOperator(
     dag=dag,
 )
 
-dq_check >> photogrametry
+def object_count():
+    return "object_count done"
+
+get_object_count = PythonOperator(
+    task_id='object_count',
+    provide_context=True,
+    python_callable=object_count,
+    dag=dag,
+)
+
+dq_check >> photogrametry >> get_object_count
+dq_check >> blur_detection >> reflectance >> img_metadata_analysis
