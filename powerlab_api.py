@@ -104,4 +104,4 @@ get_object_count = PythonOperator(
 )
 
 # dq_check >> blur_detection >> reflectance >> img_metadata_analysis
-dq_check >> [dq_check_blur_detection, dq_check_reflectance, dq_check_img_metadata_analysis] >> photogrametry >> get_object_count
+dq_check_start >> [dq_check_blur_detection, dq_check_reflectance, dq_check_img_metadata_analysis] >> photogrametry >> get_object_count
