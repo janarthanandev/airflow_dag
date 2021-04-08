@@ -37,7 +37,9 @@ def blur_detection(ds, **kwargs):
         "threshold" : 100
 	}
     payload = json.dumps(payload_dict)
-	headers = {'Content-Type':'application/json'}
+    headers = {
+        "Content-Type" : "application/json"
+    }
 	api_response = json.loads(requests.request("POST", url, headers, data = payload))
 	logging.info(api_response)
     pprint(kwargs)
