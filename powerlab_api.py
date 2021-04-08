@@ -31,17 +31,17 @@ dag = DAG(
 
 
 def blur_detection(ds, **kwargs):
-    url = "http://35.168.18.65:32060/"
-    payload_dict = {
+    dqurl = "http://35.168.18.65:32060/dq"
+    payload = {
         "datasource_url" : "s3://pwlab-dataset",
         "threshold" : 100
 	}
-    payload = json.dumps(payload_dict)
     headers = {
         "Content-Type" : "application/json"
     }
-	api_response = json.loads(requests.request("POST", url, headers, data = payload))
-	logging.info(api_response)
+    response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text).get('results')
+	logging.info(res)
     pprint(kwargs)
     print(ds)
     return 'blur check passed'
