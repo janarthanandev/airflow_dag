@@ -41,6 +41,8 @@ def blur_detection(ds, **kwargs):
     }
     response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
     res = json.loads(response.text).get('results')
+    status = json.loads(response.text).get('status')
+    logging.info(status)
     logging.info(res)
     pprint(kwargs)
     print(ds)
