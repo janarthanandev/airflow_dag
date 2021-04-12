@@ -31,7 +31,7 @@ dag = DAG(
 
 
 def blur_detection(ds, **kwargs):
-    dqurl = "http://54.226.224.26:32060/dq"
+    dqurl = "http://35.174.137.100:32060/dq"
     payload = {
         "datasource_url" : "s3://pwlab-dataset",
         "threshold" : 100
