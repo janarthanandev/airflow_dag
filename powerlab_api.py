@@ -33,8 +33,8 @@ dag = DAG(
 def blur_detection(ds, **kwargs):
     dqurl = "http://34.229.227.154:32060/dq"
     payload = {
-#         "datasource_url" : "s3://pwlab-dataset",
-	"datasource_url" : "s3://powerlab-images/powerlab_test/",
+        "datasource_url" : "s3://pwlab-dataset",
+# 	"datasource_url" : "s3://powerlab-images/powerlab_test/",
         "threshold" : 100
 	}
     headers = {
