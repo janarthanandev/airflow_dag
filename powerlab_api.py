@@ -31,7 +31,7 @@ dag = DAG(
 
 
 def blur_detection(ds, **kwargs):
-    dqurl = "http://34.229.227.154:32060/dq"
+    dqurl = "http://18.212.149.85/:32060/dq/blur"
     payload = {
         "datasource_url" : "s3://pwlab-dataset",
 # 	"datasource_url" : "s3://powerlab-images/powerlab_test/",
@@ -55,8 +55,18 @@ def reflectance(ds, **kwargs):
     return 'reflectance check passed'
 
 def img_metadata_analysis(ds, **kwargs):
-    pprint(kwargs)
-    print(ds)
+    dqurl = "http://18.212.149.85/:32060/dq/anamoly"
+    payload = {
+        "datasource_url" : "s3://pwlab-dataset",
+# 	"datasource_url" : "s3://powerlab-images/powerlab_test/",
+        "threshold" : 100
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text).get('results')
+    logging.info(res)
     return 'img_metadata_analysis check passed'
 
 
