@@ -57,7 +57,7 @@ def reflectance(ds, **kwargs):
 def img_metadata_analysis(ds, **kwargs):
     dqurl = "http://18.212.149.85/:32060/dq/anamoly"
     payload = {
-        "datasource_url" : s3://powerlab-images/powerlab_test1/f180mis/",
+        "datasource_url" : "s3://powerlab-images/powerlab_test1/f180mis/",
 # 	"datasource_url" : "s3://powerlab-images/powerlab_test/",
         "threshold" : 100
 	}
