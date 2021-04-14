@@ -32,8 +32,11 @@ dag = DAG(
 
 def blur_detection(ds, **kwargs):
     dqurl = "http://18.212.149.85:32060/dq/blur"
+    print(kwargs.keys())
+    print("end of keys")
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     payload = {
-        "datasource_url" : "s3://pwlab-dataset",
+        "datasource_url" : datasource_url,
 # 	"datasource_url" : "s3://powerlab-images/powerlab_test/",
         "threshold" : 100
 	}
@@ -45,6 +48,7 @@ def blur_detection(ds, **kwargs):
     status = json.loads(response.text).get('status')
     logging.info(status)
     logging.info(res)
+    print("end of log")
     pprint(kwargs)
     print(ds)
     return 'blur check passed'
