@@ -32,8 +32,6 @@ dag = DAG(
 
 def blur_detection(ds, **kwargs):
     dqurl = "http://18.212.149.85:32060/dq/blur"
-    print(kwargs.keys())
-    print("end of keys")
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     payload = {
         "datasource_url" : datasource_url,
@@ -48,10 +46,7 @@ def blur_detection(ds, **kwargs):
     status = json.loads(response.text).get('status')
     logging.info(status)
     logging.info(res)
-    print("end of log")
-    pprint(kwargs)
-    print(ds)
-    return 'blur check passed'
+    return 'blur check completed'
 
 def reflectance(ds, **kwargs):
     pprint(kwargs)
@@ -59,11 +54,10 @@ def reflectance(ds, **kwargs):
     return 'reflectance check passed'
 
 def img_metadata_analysis(ds, **kwargs):
-    dqurl = "http://18.212.149.85:32060/dq/anamoly"
+    dqurl = "http://18.212.149.85:32060/dq/anomaly"
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     payload = {
-        "datasource_url" : "s3://powerlab-images/powerlab_test1/f180mis/",
-# 	"datasource_url" : "s3://powerlab-images/powerlab_test/",
-        "threshold" : 100
+        "datasource_url" : datasource_url,
 	}
     headers = {
         "Content-Type" : "application/json"
@@ -71,7 +65,7 @@ def img_metadata_analysis(ds, **kwargs):
     response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
     res = json.loads(response.text).get('results')
     logging.info(res)
-    return 'img_metadata_analysis check passed'
+    return 'img_metadata_analysis check completed'
 
 
 dq_check_start = BashOperator(
