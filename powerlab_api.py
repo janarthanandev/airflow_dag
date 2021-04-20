@@ -94,18 +94,18 @@ dq_check_img_metadata_analysis = PythonOperator(
     dag=dag,
 )
 
-def photogrametry_trigger():
+def photogrametry_trigger(ds, **kwargs):
     photo_url = API_URL+"/photogrammetry"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
-    payload = {
-        "datasource_url" : datasource_url,
-	}
-    headers = {
-        "Content-Type" : "application/json"
-    }
-    response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
-    res = json.loads(response.text).get('results')
-    logging.info(res)
+#     payload = {
+#         "datasource_url" : datasource_url,
+# 	}
+#     headers = {
+#         "Content-Type" : "application/json"
+#     }
+#     response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
+#     res = json.loads(response.text).get('results')
+#     logging.info(res)
     return "photogrametry done"
 
 
@@ -116,7 +116,7 @@ photogrametry = PythonOperator(
     dag=dag,
 )
 
-def object_count():
+def object_count(ds, **kwargs):
     objct_url = API_URL+"/object-detect"
     datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
