@@ -29,9 +29,10 @@ dag = DAG(
     tags=['pwlab']
 )
 
+API_URL="http://18.232.167.195:32060"
 
 def blur_detection(ds, **kwargs):
-    dqurl = "http://18.212.149.85:32060/dq/blur"
+    dqurl = API_URL+"/dq/blur"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     payload = {
         "datasource_url" : datasource_url,
@@ -54,7 +55,7 @@ def reflectance(ds, **kwargs):
     return 'reflectance check passed'
 
 def img_metadata_analysis(ds, **kwargs):
-    dqurl = "http://18.212.149.85:32060/dq/anomaly"
+    dqurl = API_URL+"/dq/anomaly"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     payload = {
         "datasource_url" : datasource_url,
@@ -94,6 +95,17 @@ dq_check_img_metadata_analysis = PythonOperator(
 )
 
 def photogrametry_trigger():
+    photo_url = API_URL+"/photogrammetry"
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    payload = {
+        "datasource_url" : datasource_url,
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text).get('results')
+    logging.info(res)
     return "photogrametry done"
 
 
@@ -105,6 +117,18 @@ photogrametry = PythonOperator(
 )
 
 def object_count():
+    objct_url = API_URL+"/object-detect"
+    datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
+#     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    payload = {
+        "datasource_url" : datasource_url,
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", objct_url, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text).get('results')
+    logging.info(res)
     return "object_count done"
 
 get_object_count = PythonOperator(
