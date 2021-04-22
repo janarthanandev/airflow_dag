@@ -118,7 +118,11 @@ photogrametry = PythonOperator(
 
 def object_count(ds, **kwargs):
     objct_url = API_URL+"/object-detect"
-    datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
+    ti = kwargs['ti']
+    phtogrametry_res = ti.xcom_pull(task_ids='photogrametry')
+    print("photogram",phtogrametry_res)
+    datasource_url = phtogrametry_res.get('ortho')
+#     datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     payload = {
         "datasource_url" : datasource_url,
