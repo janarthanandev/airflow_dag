@@ -97,15 +97,15 @@ dq_check_img_metadata_analysis = PythonOperator(
 def photogrametry_trigger(ds, **kwargs):
     photo_url = API_URL+"/photogrammetry"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
-#     payload = {
-#         "datasource_url" : datasource_url,
-# 	}
-#     headers = {
-#         "Content-Type" : "application/json"
-#     }
-#     response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
-#     res = json.loads(response.text).get('results')
-#     logging.info(res)
+    payload = {
+        "datasource_url" : datasource_url,
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text).get('results')
+    logging.info(res)
     return "photogrametry done"
 
 
@@ -131,7 +131,7 @@ def object_count(ds, **kwargs):
         "Content-Type" : "application/json"
     }
     response = requests.request("POST", objct_url, headers=headers, data=json.dumps(payload))
-    res = json.loads(response.text).get('Result')
+    res = json.loads(response.text).get('result')
     logging.info(res)
     return "object_count done"
 
