@@ -106,7 +106,7 @@ def photogrametry_trigger(ds, **kwargs):
     response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
     res = json.loads(response.text).get('results')
     logging.info(res)
-    return "photogrametry done"
+    return res
 
 
 photogrametry = PythonOperator(
