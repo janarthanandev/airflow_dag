@@ -104,7 +104,7 @@ def photogrametry_trigger(ds, **kwargs):
         "Content-Type" : "application/json"
     }
     response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
-    res = json.loads(response.text).get('results')
+    res = json.loads(response.text)
     logging.info(res)
     return res
 
