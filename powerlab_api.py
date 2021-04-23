@@ -64,7 +64,7 @@ def img_metadata_analysis(ds, **kwargs):
         "Content-Type" : "application/json"
     }
     response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
-    res = json.loads(response.text).get('results')
+    res = json.loads(response.text)
     logging.info(res)
     return 'img_metadata_analysis check completed'
 
