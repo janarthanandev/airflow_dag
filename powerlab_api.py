@@ -34,9 +34,10 @@ API_URL="http://18.232.167.195:32060"
 def blur_detection(ds, **kwargs):
     dqurl = API_URL+"/dq/blur"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
     payload = {
         "datasource_url" : datasource_url,
-# 	"datasource_url" : "s3://powerlab-images/powerlab_test/",
+ 	"output_url" : output_url,
         "threshold" : 100
 	}
     headers = {
@@ -57,12 +58,11 @@ def reflectance(ds, **kwargs):
 def img_metadata_analysis(ds, **kwargs):
     dqurl = API_URL+"/dq/anomaly"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
     payload = {
         "datasource_url" : datasource_url,
+ 	"output_url" : output_url,
 	}
-    headers = {
-        "Content-Type" : "application/json"
-    }
     response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
     res = json.loads(response.text)
     logging.info(res)
@@ -97,8 +97,10 @@ dq_check_img_metadata_analysis = PythonOperator(
 def photogrametry_trigger(ds, **kwargs):
     photo_url = API_URL+"/photogrammetry"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
     payload = {
         "datasource_url" : datasource_url,
+ 	"output_url" : output_url,
 	}
     headers = {
         "Content-Type" : "application/json"
@@ -120,12 +122,14 @@ def object_count(ds, **kwargs):
     objct_url = API_URL+"/object-detect"
     ti = kwargs['ti']
     phtogrametry_res = ti.xcom_pull(task_ids='photogrametry')
-    print("photogram",phtogrametry_res)
+    print("photogrametry_res",phtogrametry_res)
     datasource_url = phtogrametry_res.get('ortho')
 #     datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
     payload = {
         "datasource_url" : datasource_url,
+ 	"output_url" : output_url,
 	}
     headers = {
         "Content-Type" : "application/json"
