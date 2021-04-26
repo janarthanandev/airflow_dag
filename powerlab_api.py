@@ -108,10 +108,37 @@ def photogrametry_trigger(ds, **kwargs):
     headers = {
         "Content-Type" : "application/json"
     }
+    logging.info()
     response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
     res = json.loads(response.text)
     logging.info(res)
     return res
+
+def photogrametry_trigger(ds, **kwargs):
+    photo_url = API_URL+"/photogrammetry"
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
+    payload = {
+        "datasource_url" : datasource_url,
+ 	    "output_url" : output_url,
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    logging.info()
+    retries = 0
+    while retries < 5:
+        try:
+            response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
+            res = json.loads(response.text)
+            logging.info(res)
+            return res
+        except Exception as e:
+            logging.info("exception occured",e)
+            retries += 1
+	    logging.info("Trying again ",retries,"time")
+            time.sleep(1)
+    raise Exception("Maximum retries exceeded")
 
 
 photogrametry = PythonOperator(
