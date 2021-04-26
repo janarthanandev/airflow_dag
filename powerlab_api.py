@@ -103,7 +103,7 @@ def photogrametry_trigger(ds, **kwargs):
     output_url = kwargs['dag_run'].conf.get('output_url')
     payload = {
         "datasource_url" : datasource_url,
- 	    "output_url" : output_url,
+ 	 "output_url" : output_url,
 	}
     headers = {
         "Content-Type" : "application/json"
@@ -119,7 +119,7 @@ def photogrametry_trigger(ds, **kwargs):
         except Exception as e:
             logging.info("exception occured",e)
             retries += 1
-	    logging.info("Trying again ",retries,"time")
+	    logging.info("Trying again...")
             time.sleep(1)
     raise Exception("Maximum retries exceeded")
 
