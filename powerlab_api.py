@@ -119,7 +119,6 @@ def photogrametry_trigger(ds, **kwargs):
         except Exception as e:
             logging.info("exception occured",e)
             retries += 1
-	    logging.info("Trying again...")
             time.sleep(1)
     raise Exception("Maximum retries exceeded")
 
