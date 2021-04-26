@@ -103,23 +103,6 @@ def photogrametry_trigger(ds, **kwargs):
     output_url = kwargs['dag_run'].conf.get('output_url')
     payload = {
         "datasource_url" : datasource_url,
- 	"output_url" : output_url,
-	}
-    headers = {
-        "Content-Type" : "application/json"
-    }
-    logging.info()
-    response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
-    res = json.loads(response.text)
-    logging.info(res)
-    return res
-
-def photogrametry_trigger(ds, **kwargs):
-    photo_url = API_URL+"/photogrammetry"
-    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
-    output_url = kwargs['dag_run'].conf.get('output_url')
-    payload = {
-        "datasource_url" : datasource_url,
  	    "output_url" : output_url,
 	}
     headers = {
