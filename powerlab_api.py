@@ -29,7 +29,7 @@ dag = DAG(
     tags=['pwlab']
 )
 
-API_URL="http://18.232.167.195:32060"
+API_URL="http://18.212.147.213:32060"
 
 def blur_detection(ds, **kwargs):
     dqurl = API_URL+"/dq/blur"
