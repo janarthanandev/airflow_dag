@@ -108,7 +108,7 @@ def photogrametry_trigger(ds, **kwargs):
     headers = {
         "Content-Type" : "application/json"
     }
-    logging.info()
+    logging.info("photogrammetry request iniated")
     retries = 0
     while retries < 5:
         try:
