@@ -35,6 +35,8 @@ def blur_detection(ds, **kwargs):
     dqurl = API_URL+"/dq/blur"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
     payload = {
         "datasource_url" : datasource_url,
  	"output_url" : output_url,
@@ -51,14 +53,29 @@ def blur_detection(ds, **kwargs):
     return 'blur check completed'
 
 def reflectance(ds, **kwargs):
-    pprint(kwargs)
-    print(ds)
+    dqurl = API_URL+"/dq/reflection"
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
+    payload = {
+        "datasource_url" : datasource_url,
+ 	"output_url" : output_url,
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text)
+    logging.info(res)
     return 'reflectance check passed'
 
 def img_metadata_analysis(ds, **kwargs):
     dqurl = API_URL+"/dq/anomaly"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
     payload = {
         "datasource_url" : datasource_url,
  	"output_url" : output_url,
@@ -101,6 +118,8 @@ def photogrametry_trigger(ds, **kwargs):
     photo_url = API_URL+"/photogrammetry"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
     payload = {
         "datasource_url" : datasource_url,
  	 "output_url" : output_url,
@@ -109,18 +128,22 @@ def photogrametry_trigger(ds, **kwargs):
         "Content-Type" : "application/json"
     }
     logging.info("photogrammetry request iniated")
-    retries = 0
-    while retries < 5:
-        try:
-            response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
-            res = json.loads(response.text)
-            logging.info(res)
-            return res
-        except Exception as e:
-            logging.info("exception occured",e)
-            retries += 1
-            time.sleep(1)
-    raise Exception("Maximum retries exceeded")
+    response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text)
+    logging.info("airflow photogram result",res)
+    return res
+#     retries = 0
+#     while retries < 5:
+#         try:
+#             response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
+#             res = json.loads(response.text)
+#             logging.info(res)
+#             return res
+#         except Exception as e:
+#             logging.info("exception occured",e)
+#             retries += 1
+#             time.sleep(1)
+#     raise Exception("Maximum retries exceeded")
 
 
 photogrametry = PythonOperator(
@@ -136,6 +159,8 @@ def object_count(ds, **kwargs):
     phtogrametry_res = ti.xcom_pull(task_ids='photogrametry')
     print("photogrametry_res",phtogrametry_res)
     datasource_url = phtogrametry_res.get('ortho')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
 #     datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
