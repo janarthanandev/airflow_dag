@@ -134,7 +134,7 @@ def photogrametry_trigger(ds, **kwargs):
 #     res = json.loads(response.text)
 #     logging.info("airflow photogram result",res)
 #     return res
-      return "done"
+    return "done"
 #     retries = 0
 #     while retries < 5:
 #         try:
