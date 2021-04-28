@@ -33,59 +33,59 @@ API_URL="http://54.81.159.231:32060"
 
 def blur_detection(ds, **kwargs):
     dqurl = API_URL+"/dq/blur"
-#     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
-#     output_url = kwargs['dag_run'].conf.get('output_url')
-#     logging.info("datasource url",datasource_url)
-#     logging.info("output url",output_url)
-#     payload = {
-#         "datasource_url" : datasource_url,
-#  	"output_url" : output_url,
-#         "threshold" : 100
-# 	}
-#     headers = {
-#         "Content-Type" : "application/json"
-#     }
-#     response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
-#     res = json.loads(response.text).get('results')
-#     status = json.loads(response.text).get('status')
-#     logging.info(status)
-#     logging.info(res)
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
+    payload = {
+        "datasource_url" : datasource_url,
+ 	"output_url" : output_url,
+        "threshold" : 100
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text).get('results')
+    status = json.loads(response.text).get('status')
+    logging.info(status)
+    logging.info(res)
     return 'blur check completed'
 
 def reflectance(ds, **kwargs):
     dqurl = API_URL+"/dq/reflection"
-#     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
-#     output_url = kwargs['dag_run'].conf.get('output_url')
-#     logging.info("datasource url",datasource_url)
-#     logging.info("output url",output_url)
-#     payload = {
-#         "datasource_url" : datasource_url,
-#  	"output_url" : output_url,
-# 	}
-#     headers = {
-#         "Content-Type" : "application/json"
-#     }
-#     response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
-#     res = json.loads(response.text)
-#     logging.info(res)
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
+    payload = {
+        "datasource_url" : datasource_url,
+ 	"output_url" : output_url,
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text)
+    logging.info(res)
     return 'reflectance check passed'
 
 def img_metadata_analysis(ds, **kwargs):
     dqurl = API_URL+"/dq/anomaly"
-#     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
-#     output_url = kwargs['dag_run'].conf.get('output_url')
-#     logging.info("datasource url",datasource_url)
-#     logging.info("output url",output_url)
-#     payload = {
-#         "datasource_url" : datasource_url,
-#  	"output_url" : output_url,
-# 	}
-#     headers = {
-#         "Content-Type" : "application/json"
-#     }
-#     response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
-#     res = json.loads(response.text)
-#     logging.info(res)
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    output_url = kwargs['dag_run'].conf.get('output_url')
+    logging.info("datasource url",datasource_url)
+    logging.info("output url",output_url)
+    payload = {
+        "datasource_url" : datasource_url,
+ 	"output_url" : output_url,
+	}
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    response = requests.request("POST", dqurl, headers=headers, data=json.dumps(payload))
+    res = json.loads(response.text)
+    logging.info(res)
     return 'img_metadata_analysis check completed'
 
 
