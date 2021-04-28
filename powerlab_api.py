@@ -35,8 +35,8 @@ def blur_detection(ds, **kwargs):
     dqurl = API_URL+"/dq/blur"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
-    logging.info("datasource url",datasource_url)
-    logging.info("output url",output_url)
+    logging.info(f"datasource url {datasource_url}")
+    logging.info(f"output url {output_url}")
     payload = {
         "datasource_url" : datasource_url,
  	"output_url" : output_url,
@@ -56,8 +56,8 @@ def reflectance(ds, **kwargs):
     dqurl = API_URL+"/dq/reflection"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
-    logging.info("datasource url",datasource_url)
-    logging.info("output url",output_url)
+    logging.info(f"datasource url {datasource_url}")
+    logging.info(f"output url {output_url}")
     payload = {
         "datasource_url" : datasource_url,
  	"output_url" : output_url,
@@ -74,8 +74,8 @@ def img_metadata_analysis(ds, **kwargs):
     dqurl = API_URL+"/dq/anomaly"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
-    logging.info("datasource url",datasource_url)
-    logging.info("output url",output_url)
+    logging.info(f"datasource url {datasource_url}")
+    logging.info(f"output url {output_url}")
     payload = {
         "datasource_url" : datasource_url,
  	"output_url" : output_url,
@@ -162,8 +162,8 @@ def object_count(ds, **kwargs):
     phtogrametry_res = ti.xcom_pull(task_ids='photogrametry')
     print("photogrametry_res",phtogrametry_res)
     datasource_url = phtogrametry_res.get('ortho')
-    logging.info("datasource url",datasource_url)
-    logging.info("output url",output_url)
+    logging.info(f"datasource url {datasource_url}")
+    logging.info(f"output url {output_url}")
 #     datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
