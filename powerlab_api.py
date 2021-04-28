@@ -118,22 +118,23 @@ def photogrametry_trigger(ds, **kwargs):
     photo_url = API_URL+"/photogrammetry"
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
 #     output_url = kwargs['dag_run'].conf.get('output_url')
-    datasource_url="s3://pwlab-dataset/sample/test5img"
-    output_url="s3://pwlab-dataset/output/test5img"
-    logging.info("datasource url",datasource_url)
-    logging.info("output url",output_url)
-    payload = {
-        "datasource_url" : datasource_url,
- 	 "output_url" : output_url,
-	}
-    headers = {
-        "Content-Type" : "application/json"
-    }
-    logging.info("photogrammetry request iniated")
-    response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
-    res = json.loads(response.text)
-    logging.info("airflow photogram result",res)
-    return res
+#     datasource_url="s3://pwlab-dataset/sample/test5img"
+#     output_url="s3://pwlab-dataset/output/test5img"
+#     logging.info("datasource url",datasource_url)
+#     logging.info("output url",output_url)
+#     payload = {
+#         "datasource_url" : datasource_url,
+#  	 "output_url" : output_url,
+# 	}
+#     headers = {
+#         "Content-Type" : "application/json"
+#     }
+#     logging.info("photogrammetry request iniated")
+#     response = requests.request("POST", photo_url, headers=headers, data=json.dumps(payload))
+#     res = json.loads(response.text)
+#     logging.info("airflow photogram result",res)
+#     return res
+      return "done"
 #     retries = 0
 #     while retries < 5:
 #         try:
