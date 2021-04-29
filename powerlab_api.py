@@ -160,7 +160,7 @@ def object_count(ds, **kwargs):
     ti = kwargs['ti']
     phtogrametry_res = ti.xcom_pull(task_ids='photogrametry')
     print("photogrametry_res",phtogrametry_res)
-    datasource_url = phtogrametry_res.get('ortho') and "s3://"+phtogrametry_res.get('ortho')
+    datasource_url = phtogrametry_res.get('ortho')
     output_url = kwargs['dag_run'].conf.get('output_url')
     logging.info(f"datasource url {datasource_url}")
     logging.info(f"output url {output_url}")
