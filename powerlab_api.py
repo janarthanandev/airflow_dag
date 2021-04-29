@@ -116,7 +116,6 @@ dq_check_img_metadata_analysis = PythonOperator(
 
 def photogrametry_trigger(ds, **kwargs):
     photo_url = API_URL+"/photogrammetry"
-    return "done"
     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     output_url = kwargs['dag_run'].conf.get('output_url')
 #     datasource_url="s3://pwlab-dataset/sample/test5img"
