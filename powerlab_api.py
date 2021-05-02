@@ -160,7 +160,8 @@ def object_count(ds, **kwargs):
     ti = kwargs['ti']
     phtogrametry_res = ti.xcom_pull(task_ids='photogrametry')
     print("photogrametry_res",phtogrametry_res)
-    datasource_url = phtogrametry_res.get('orthophoto_url')
+    datasource_url = kwargs['dag_run'].conf.get('datasource_url')
+    orthophoto_url = phtogrametry_res.get('orthophoto_url')
 #     datasource_url = "s3://pwlab-dataset/output/test5img/orthophoto.tif"
     output_url = kwargs['dag_run'].conf.get('output_url')
     logging.info(f"datasource url {datasource_url}")
@@ -169,7 +170,8 @@ def object_count(ds, **kwargs):
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
     payload = {
         "datasource_url" : datasource_url,
- 	"output_url" : output_url,
+	"orthophoto_url" : orthophoto_url,
+ 	"output_url" : output_url
 	}
     headers = {
         "Content-Type" : "application/json"
