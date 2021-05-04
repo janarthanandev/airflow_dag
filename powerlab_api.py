@@ -165,6 +165,7 @@ def object_count(ds, **kwargs):
 #     datasource_url = "s3://pwlab-dataset/output/test5img/orthophoto.tif"
     output_url = kwargs['dag_run'].conf.get('output_url')
     logging.info(f"datasource url {datasource_url}")
+    logging.info(f"output url {orthophoto_url}")
     logging.info(f"output url {output_url}")
 #     datasource_url = "s3://pwlab-dataset/output/orthophoto/orthophoto.png"
 #     datasource_url = kwargs['dag_run'].conf.get('datasource_url')
