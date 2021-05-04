@@ -177,7 +177,7 @@ def object_count(ds, **kwargs):
         "Content-Type" : "application/json"
     }
     response = requests.request("POST", objct_url, headers=headers, data=json.dumps(payload))
-    res = json.loads(response.text).get('result')
+    res = json.loads(response.text)
     logging.info(res)
     return "object_count done"
 
